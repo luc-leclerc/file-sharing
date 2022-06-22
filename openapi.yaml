@@ -1,12 +1,85 @@
-openapi: "3.0.2"
+openapi: 3.0.2
 info:
   title: File sharing
   version: "1.0"
 servers:
-  - url: https://api.server.test/v1
+  - url: https://api.server.test/
 paths:
-  /test:
+  /v1/file:
     get:
+      tags:
+        - 'file'
+      operationId: downloadFile
+      summary: Download a file
+      parameters:
+        - in: query
+          name: filename
+          schema:
+            type: string
+            pattern: '^[a-zA-Z-]*[\.]?[a-zA-Z]*$'
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+#                $ref: '#/components/schemas/DownloadResponse'
+          description: OK
+    post:
+      tags:
+        - 'file'
+      operationId: uploadFile
+      summary: Upload a file
+      parameters:
+        - in: query
+          name: filename
+          schema:
+            type: string
+            pattern: '^[a-zA-Z-]*[\.]?[a-zA-Z]*$'
+      requestBody:
+        content:
+          'multipart/form-data':
+            schema:
+              $ref: '#/components/schemas/UploadRequest'
       responses:
         '200':
           description: OK
+  /v1/file/findAll:
+    get:
+      tags:
+        - 'file'
+      operationId: listFiles
+      summary: List files
+      responses:
+        '200':
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ListFilesResponse'
+          description: OK
+components:
+  schemas:
+    ListFilesResponse:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+    UploadRequest:
+      type: object
+      required:
+        - file
+      properties:
+        file:
+          type: string
+          format: binary
+    DownloadResponse:
+      type: object
+      required:
+        - file
+      properties:
+        file:
+          type: string
+          format: binary

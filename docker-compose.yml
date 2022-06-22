@@ -1,0 +1,7 @@
+services:
+  workspace:
+    working_dir: /opt/workspace
+    build:
+      context: .
+    volumes:
+      - $PWD:/opt/workspace
