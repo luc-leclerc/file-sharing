@@ -72,7 +72,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/openapi.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/openapi.yml</inputSpec>
                             <!-- https://generator.swagger.io/api/gen/servers/spring -->
                             <language>spring</language>
                             <templateDirectory>${project.basedir}/template</templateDirectory>

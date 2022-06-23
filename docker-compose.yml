@@ -1,7 +1,6 @@
 services:
   workspace:
+    image: 693416317310.dkr.ecr.ca-central-1.amazonaws.com/file-sharing:latest
     working_dir: /opt/workspace
     build:
       context: .
-    volumes:
-      - $PWD:/opt/workspace
