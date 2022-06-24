@@ -24,7 +24,6 @@ paths:
               schema:
                 type: string
                 format: binary
-#                $ref: '#/components/schemas/DownloadResponse'
           description: OK
     post:
       tags:
@@ -36,7 +35,8 @@ paths:
           name: filename
           schema:
             type: string
-            pattern: '^[a-zA-Z-]*[\.]?[a-zA-Z]*$'
+            pattern: '^[a-zA-Z0-9-]*[\.]?[a-zA-Z0-9]*$'
+            description: Pattern '^[a-zA-Z0-9-]*[\.]?[a-zA-Z0-9]*$'
       requestBody:
         content:
           'multipart/form-data':
@@ -68,14 +68,6 @@ components:
           items:
             type: string
     UploadRequest:
-      type: object
-      required:
-        - file
-      properties:
-        file:
-          type: string
-          format: binary
-    DownloadResponse:
       type: object
       required:
         - file
